@@ -1,0 +1,11 @@
+
+*.csv
+data/README.txt
+*.png
+*.pth
+note.txt
+notebook/
+results/weights/
+Leonardo/
+imgs/
+*.pyc

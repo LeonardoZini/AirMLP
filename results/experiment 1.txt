@@ -1,0 +1,32 @@
+WITH ARI1727, NO BATCH NORM, NO MANUAL NORM, L1 LOSS
+------------------------------MODEL-----------------------------------------------------------
+class MLP(nn.Module):
+  
+  def __init__(self, num_fin: int, num_hidden: int):
+    super(MLP, self).__init__()
+    
+    # nn.Dropout(0.7),
+    self.net = nn.Sequential(
+                    
+                    nn.Linear(num_fin, num_hidden),
+                    nn.Dropout(0.7),             
+                    nn.ReLU(),               
+                    nn.Linear(num_hidden, 1)
+    )
+  
+  def forward(self, x: torch.Tensor):
+
+    output = self.net(x)
+    return output
+    
+------------------------------RESULT-------------------------------------------------------
+Epoch 0 train mse.: 88.674 test mse.: 131.437
+Epoch 1 train mse.: 9.651 test mse.: 10.512
+Epoch 2 train mse.: 9.671 test mse.: 10.872
+
+--------------------------WITHOUT ARI1727------------------------------------------------------
+Epoch 0 train mse.: 101.137 test mse.: 89.288
+Epoch 1 train mse.: 13.269 test mse.: 16.145
+Epoch 2 train mse.: 13.238 test mse.: 15.884
+
+

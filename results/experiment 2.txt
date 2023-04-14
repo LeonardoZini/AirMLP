@@ -1,0 +1,45 @@
+================================SECOND MODEL=================================================
+Raw LSTM with one linear layer at the end.
+-------------------------MODEL-----------------------------------------
+
+class AirModel(nn.Module):
+    def __init__(self, num_hidden=50):
+        super().__init__()
+        self.lstm = nn.LSTM(input_size=6, hidden_size=num_hidden, num_layers=3, batch_first=True)
+        self.linear = nn.Linear(num_hidden, 1)
+    def forward(self, x):
+        x, _ = self.lstm(x)
+        x = self.linear(x)
+        
+        return x
+
+The dataset is constructed in order to analyze temporal series of 20 record (nearly 5 hours).
+X train shape : torch.Size([10500, 20, 6]) 
+Y train shape : torch.Size([10500, 20, 1])
+X test shape : torch.Size([2611, 20, 6]) 
+Y test shape : torch.Size([2611, 20, 1])
+
+As starting dataset, i considered the union of the three wise-air devices for the period (1st march - 30th april).
+I don't have considered yet the result removing ari1727 (the most problematic device).
+
+The value of the Y is the last of the 20, created in a way that 20 record of input has as reference the Y of the last record (many-to-one).
+***: this is something that could be changed (may lead to better results).
+
+Hyperparameters:
+num_hidden : 200
+loss : MSE
+epochs : 160
+optimizer : Adam
+learning rate : 0,001
+batch_size : 512
+
+last evaluation output : "Epoch 150: train RMSE 8.1547, test RMSE 6.8818"
+
+Results: in this folder there are two images, "output_gt_model_v2.png" that compares the output of my net with the ground truth data,
+while in the image "output_gt_wise_v2.png" there is the comparison between arpa's data and the raw data of wise air.
+
+At this point, i haven't started yet to takes into account improvements like normalization of datasat, changing loss and so on.
+I only played with the structure of the network, the length of the temporal size, num_hiddden, learning rate and batch size.
+With the configuration explained before, i reached the best results (for now at least).
+
+========================================================================================================================================
