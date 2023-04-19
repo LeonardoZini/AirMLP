@@ -37,10 +37,10 @@ class DataCollection:
         self.datetime=True
 
     def get_devices(self):
-        return self.wiseair
+        return self.wiseair.copy()
 
     def get_gt(self):
-        return self.arpa
+        return self.arpa.copy()
 
 
 
@@ -50,12 +50,15 @@ class DataCollection:
         order to don't lose the reference to the right data, and the ground truth data itself.
         '''
         self.dataset = pd.DataFrame()
-        for i in self.get_devices():
+        for k,i in enumerate(self.get_devices()):
+            
             tmp = pd.merge(i,self.arpa,how="inner",on="valid_at").rename(columns={"pm2p5_y":"pm2p5_t","pm2p5_x":"pm2p5"})
+            tmp["dev"]=k
             self.dataset = pd.concat([tmp,self.dataset])
        
-        self.dataset.sort_values(by="valid_at",inplace=True)
+        self.dataset.sort_values(by=["dev","valid_at"],inplace=True)
         self.dataset.reset_index(drop=True, inplace=True)
+        self.dataset.drop(columns="dev",inplace=True)
         if drop_datetime:
             self.datetime=False
             return (self.dataset.drop(columns="valid_at"),self.arpa.drop(columns="valid_at"))

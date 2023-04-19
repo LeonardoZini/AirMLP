@@ -22,7 +22,6 @@ def creation(dataset_, lookback=10, p=0.8):
     Staring from a pandas.DataFrame object, divide it in train and test set, putting together a number of "lookback" consecutive record.
     Returns a tuple of tuple, where each of the two tuple are the torch.tensor relative to train and test set.
     
-    TODO: the consecutive record must be relative of the same device, to check.
     
     '''
     dataset=dataset_.copy()
