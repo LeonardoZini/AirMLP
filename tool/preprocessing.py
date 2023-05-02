@@ -28,6 +28,7 @@ class DataCollection:
         
 
         self.wiseair = [self.ari1952,self.ari1953,self.ari1885,self.ari1727,self.ari2049]
+        #self.wiseair = [self.ari1952,self.ari1953,self.ari1727]
 
         self.arpa = pd.read_csv(ARPA)
         self.arpa["valid_at"] = pd.to_datetime(self.arpa["valid_at"]).dt.round("H")
@@ -42,7 +43,7 @@ class DataCollection:
     def get_gt(self):
         return self.arpa.copy()
 
-
+    
 
     def get_dataset(self,drop_datetime:bool=False):  
         '''

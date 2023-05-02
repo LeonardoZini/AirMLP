@@ -16,59 +16,7 @@ class AirModel(nn.Module):
         
         return torch.flatten(x,0)
 
-class AirMLP_4(nn.Module):
-  '''
-  Model based on Linear Layer
 
-  output of the netowrk is a tensor of shape [BATCH_SIZE]
-  If you want to put in the shape [BATCH_SIZE,1] remove the flatten function in the forward and adjust the input ground truth
-  '''
-  def __init__(self, num_fin: int, num_hidden: int):
-    super(AirMLP_4, self).__init__()
-    
-    # nn.Dropuout(0.5) -> usare anche sigmoide
-    self.net = nn.Sequential(
-                    nn.BatchNorm1d(num_fin,affine=False),
-                    nn.Linear(num_fin, num_hidden),  
-                    nn.ReLU(),      
-                    nn.Linear(num_hidden, num_hidden),  
-                    nn.ReLU(),     
-                    nn.Linear(num_hidden, num_hidden//2),  
-                    nn.ReLU(),                               
-                    nn.Linear(num_hidden//2, 1)
-    )
-  
-  def forward(self, x: torch.Tensor):
-    output = self.net(x)
-    return torch.flatten(output,0)
-    
-class AirMLP_3(nn.Module):
-  '''
-  Model based on Linear Layer
-
-  output of the netowrk is a tensor of shape [BATCH_SIZE]
-  If you want to put in the shape [BATCH_SIZE,1] remove the flatten function in the forward and adjust the input ground truth
-  '''
-  def __init__(self, num_fin: int, num_hidden: int):
-    super(AirMLP_3, self).__init__()
-    
-    # nn.Dropuout(0.5) -> usare anche sigmoide
-    self.net = nn.Sequential(
-                    nn.BatchNorm1d(num_fin,affine=False),
-                    nn.Linear(num_fin, num_hidden),  
-                    nn.ReLU(),      
-                    nn.Linear(num_hidden, num_hidden),  
-                    nn.ReLU(),     
-                                                  
-                    nn.Linear(num_hidden, 1)
-    )
-  
-  def forward(self, x: torch.Tensor):
-    output = self.net(x)
-    return torch.flatten(output,0)
-    
-
-  
 class AirMLP_5(nn.Module):
   '''
   Model based on Linear Layer
@@ -85,19 +33,18 @@ class AirMLP_5(nn.Module):
                     nn.Linear(num_fin, num_hidden),  
                     nn.ReLU(),      
                     nn.Linear(num_hidden, num_hidden),  
-                    nn.ReLU(),   
+                    nn.ReLU(), 
                     nn.Linear(num_hidden, num_hidden),  
-                    nn.ReLU(),    
-                    nn.Linear(num_hidden, num_hidden//2),  
-                    nn.ReLU(),                               
-                    nn.Linear(num_hidden//2, 1)
+                    nn.ReLU(),      
+                    nn.Linear(num_hidden, num_hidden),  
+                    nn.ReLU(),                   
+                    nn.Linear(num_hidden, 1)
     )
   
   def forward(self, x: torch.Tensor):
     output = self.net(x)
     return torch.flatten(output,0)
-  
-  
+    
 class AirMLP_6(nn.Module):
   '''
   Model based on Linear Layer
@@ -110,7 +57,7 @@ class AirMLP_6(nn.Module):
     
     # nn.Dropuout(0.5) -> usare anche sigmoide
     self.net = nn.Sequential(
-                    nn.BatchNorm1d(num_fin,affine=False),
+                    nn.BatchNorm1d(num_fin,affine=True),
                     nn.Linear(num_fin, num_hidden),  
                     nn.ReLU(),      
                     nn.Linear(num_hidden, num_hidden),  
@@ -124,6 +71,138 @@ class AirMLP_6(nn.Module):
                     nn.Linear(num_hidden, 1)
     )
   
+  def forward(self, x: torch.Tensor):
+    output = self.net(x)
+    return torch.flatten(output,0)
+  
+class AirMLP_7(nn.Module):
+  '''
+  Model based on Linear Layer
+
+  output of the netowrk is a tensor of shape [BATCH_SIZE]
+  If you want to put in the shape [BATCH_SIZE,1] remove the flatten function in the forward and adjust the input ground truth
+  '''
+  def __init__(self, num_fin: int, num_hidden: int):
+    super(AirMLP_7, self).__init__()
+    
+    # nn.Dropuout(0.5) -> usare anche sigmoide
+    self.net = nn.Sequential(
+                    nn.BatchNorm1d(num_fin,affine=True),
+                    nn.Linear(num_fin, num_hidden),  
+                    nn.ReLU(),      
+                    nn.Linear(num_hidden, num_hidden),  
+                    nn.ReLU(),   
+                    nn.Linear(num_hidden, num_hidden),  
+                    nn.ReLU(),    
+                    nn.Linear(num_hidden, num_hidden),  
+                    nn.ReLU(),    
+                    nn.Linear(num_hidden, num_hidden),  
+                    nn.ReLU(),  
+                    nn.Linear(num_hidden, num_hidden),  
+                    nn.ReLU(),                           
+                    nn.Linear(num_hidden, 1)
+    )
+  
+  def forward(self, x: torch.Tensor):
+    output = self.net(x)
+    return torch.flatten(output,0)
+  
+class AirMLP_8(nn.Module):
+  '''
+  Model based on Linear Layer
+
+  output of the netowrk is a tensor of shape [BATCH_SIZE]
+  If you want to put in the shape [BATCH_SIZE,1] remove the flatten function in the forward and adjust the input ground truth
+  '''
+  def __init__(self, num_fin: int, num_hidden: int):
+    super(AirMLP_8, self).__init__()
+    
+    # nn.Dropuout(0.5) -> usare anche sigmoide
+    self.net = nn.Sequential(
+                    nn.BatchNorm1d(num_fin,affine=True),
+                    nn.Linear(num_fin, num_hidden),  
+                    nn.ReLU(),      
+                    nn.Linear(num_hidden, num_hidden),  
+                    nn.ReLU(),   
+                    nn.Linear(num_hidden, num_hidden),  
+                    nn.ReLU(),    
+                    nn.Linear(num_hidden, num_hidden),  
+                    nn.ReLU(),  
+                    nn.Linear(num_hidden, num_hidden),  
+                    nn.ReLU(),    
+                    nn.Linear(num_hidden, num_hidden),  
+                    nn.ReLU(),   
+                    nn.Linear(num_hidden, num_hidden),  
+                    nn.ReLU(),                             
+                    nn.Linear(num_hidden, 1)
+    )
+
+  def forward(self, x: torch.Tensor):
+    output = self.net(x)
+    return torch.flatten(output,0)
+  
+class AirMLP_7h(nn.Module):
+  '''
+  Model based on Linear Layer
+
+  output of the netowrk is a tensor of shape [BATCH_SIZE]
+  If you want to put in the shape [BATCH_SIZE,1] remove the flatten function in the forward and adjust the input ground truth
+  '''
+  def __init__(self, num_fin: int, num_hidden: int):
+    super(AirMLP_7h, self).__init__()
+    
+    # nn.Dropuout(0.5) -> usare anche sigmoide
+    self.net = nn.Sequential(
+                    nn.BatchNorm1d(num_fin,affine=True),
+                    nn.Linear(num_fin, num_hidden),  
+                    nn.ReLU(),      
+                    nn.Linear(num_hidden, num_hidden),  
+                    nn.ReLU(),   
+                    nn.Linear(num_hidden, num_hidden),  
+                    nn.ReLU(),    
+                    nn.Linear(num_hidden, num_hidden),  
+                    nn.ReLU(),    
+                    nn.Linear(num_hidden, num_hidden),  
+                    nn.ReLU(),  
+                    nn.Linear(num_hidden, num_hidden//2),  
+                    nn.ReLU(),                           
+                    nn.Linear(num_hidden//2, 1)
+    )
+  
+  def forward(self, x: torch.Tensor):
+    output = self.net(x)
+    return torch.flatten(output,0)
+
+class AirMLP_8h(nn.Module):
+  '''
+  Model based on Linear Layer
+
+  output of the netowrk is a tensor of shape [BATCH_SIZE]
+  If you want to put in the shape [BATCH_SIZE,1] remove the flatten function in the forward and adjust the input ground truth
+  '''
+  def __init__(self, num_fin: int, num_hidden: int):
+    super(AirMLP_8h, self).__init__()
+    
+    # nn.Dropuout(0.5) -> usare anche sigmoide
+    self.net = nn.Sequential(
+                    nn.BatchNorm1d(num_fin,affine=True),
+                    nn.Linear(num_fin, num_hidden),  
+                    nn.ReLU(),      
+                    nn.Linear(num_hidden, num_hidden),  
+                    nn.ReLU(),   
+                    nn.Linear(num_hidden, num_hidden),  
+                    nn.ReLU(),    
+                    nn.Linear(num_hidden, num_hidden),  
+                    nn.ReLU(),  
+                    nn.Linear(num_hidden, num_hidden),  
+                    nn.ReLU(),    
+                    nn.Linear(num_hidden, num_hidden),  
+                    nn.ReLU(),   
+                    nn.Linear(num_hidden, num_hidden//2),  
+                    nn.ReLU(),                             
+                    nn.Linear(num_hidden//2, 1)
+    )
+
   def forward(self, x: torch.Tensor):
     output = self.net(x)
     return torch.flatten(output,0)
