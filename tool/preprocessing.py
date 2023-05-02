@@ -1,10 +1,10 @@
 import pandas as pd
-ARI1952 = r".\data\ari-1952.csv" # 1
-ARI1953 = r".\data\ari-1953.csv" # 1
-ARI2049 = r".\data\ari-2049.csv" # 2
-ARI1885 = r".\data\ari-1885.csv" # 2
-ARI1727 = r".\data\ari-1727.csv" # 1
-ARPA = r".\data\arpa.csv"        # GT
+ARI1952 = r"./data/ari-1952.csv" # 1
+ARI1953 = r"./data/ari-1953.csv" # 1
+ARI2049 = r"./data/ari-2049.csv" # 2
+ARI1885 = r"./data/ari-1885.csv" # 2
+ARI1727 = r"./data/ari-1727.csv" # 1
+ARPA = r"./data/arpa.csv"        # GT
 
 
 class DataCollection:

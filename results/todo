@@ -1,4 +1,0 @@
-How to filter values before plotting it (too oscillatory value, LSTM? still oscillatory)
-
-checking in details the behavior during the train cicle, something is wrong inside that.
-like the output of mse, different input ecc. check it outside the notebook. -> changed

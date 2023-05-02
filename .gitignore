@@ -5,7 +5,7 @@ data/README.txt
 *.pth
 note.txt
 notebook/
-results/weights/
+results/
 Leonardo/
 imgs/
 *.pyc
