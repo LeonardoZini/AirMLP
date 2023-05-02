@@ -66,6 +66,8 @@ i=1
 res_trainings = list()
 try:
     for record in NUM_RECORD:
+        X = torch.tensor([]).to(torch.device("cuda:0"))
+        y = torch.tensor([]).to(torch.device("cuda:0"))
         for i in collection.get_devices():
             tmp = pd.merge(i,gt,how="inner",on="valid_at").rename(columns={"pm2p5_y":"pm2p5_t","pm2p5_x":"pm2p5"})
             res = creation(tmp,lookback=record,p=1)
