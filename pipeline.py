@@ -18,7 +18,7 @@ from deep.training import training_mlp
 
 #Config
 PROB = 1
-NUM_EPOCHS_ = 2
+NUM_EPOCHS_ = 200
 device= torch.device("cuda:0")
 
 #Hyperparameters
@@ -62,7 +62,7 @@ def plotter(model, tr_loss, ts_loss, r2test, folder,config):
 #modello
 #device
 import os
-i=1
+num_trains=1
 res_trainings = list()
 try:
     for record in NUM_RECORD:
@@ -96,13 +96,14 @@ try:
 
                     config = f"record: {record} total_dim: {record*6}, batch_size: {batch_s}, hidden: {hidden}, model: {model}"
                     config_short = f"record: {record} total_dim: {record*6}, batch_size: {batch_s}, hidden: {hidden}, model: {model_name}"
+                    print(f"Combination number: {num_trains}")
                     print(config)
                     res_tmp = training_mlp(X,y,model,batch_s,NUM_EPOCHS_,device)
                     
-                    dir_new = rf"./results/trainings_{i:03d}/"
+                    dir_new = rf"./results/trainings_{num_trains:03d}/"
                     if not os.path.exists(dir_new):
                         os.makedirs(dir_new)
-
+                    num_trains+=1
                     plotter(model,res_tmp[0],res_tmp[1],res_tmp[2],dir_new,config_short)
 
                     #torch.save(model,dir_new+"weights.pth")
