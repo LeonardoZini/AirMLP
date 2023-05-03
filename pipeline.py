@@ -117,6 +117,8 @@ try:
                         f.write("\n=========================")
                         f.write(str(res_tmp[2]))
                         f.write("\n=========================")
-
+        os.system(f"zip result_{num_trains}.zip ./results/")
+        os.system(f"cp result_{num_trains}.zip ../drive/MyDrive/res_siws")
 except KeyboardInterrupt:
-    pass
+    os.system(f"zip result_{num_trains}.zip ./results/")
+    os.system(f"cp result_{num_trains}.zip ../drive/MyDrive/res_siws")
