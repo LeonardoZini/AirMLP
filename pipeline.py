@@ -19,14 +19,12 @@ from deep.training import training_mlp
 #Config
 PROB = 1
 NUM_EPOCHS_ = 200
-device= torch.device("cuda:0")
+device= torch.device("cpu")
 
 #Hyperparameters
-NUM_RECORD = [6, 12, 20]
-BATCH_SIZE=[64, 256, 512]
-NUM_HIDDEN = [300, 500, 700]
-NUM_LAYER = 6
-
+NUM_RECORD = [1]
+BATCH_SIZE= [64] 
+NUM_HIDDEN = [1500]
 
 
 
@@ -34,8 +32,8 @@ NUM_LAYER = 6
 collection = DataCollection(drop_null=True)
 gt = collection.get_gt()
 
-X = torch.tensor([]).to(torch.device("cuda:0"))
-y = torch.tensor([]).to(torch.device("cuda:0"))
+X = torch.tensor([]).to(device)
+y = torch.tensor([]).to(device)
 
 import statistics
 
@@ -66,33 +64,22 @@ num_trains=1
 res_trainings = list()
 try:
     for record in NUM_RECORD:
-        X = torch.tensor([]).to(torch.device("cuda:0"))
-        y = torch.tensor([]).to(torch.device("cuda:0"))
+        X = torch.tensor([]).to(device)
+        y = torch.tensor([]).to(device)
         for i in collection.get_devices():
             tmp = pd.merge(i,gt,how="inner",on="valid_at").rename(columns={"pm2p5_y":"pm2p5_t","pm2p5_x":"pm2p5"})
             res = creation(tmp,lookback=record,p=1)
             X = torch.concat([X.clone(),res[0].flatten(-2)])
             y = torch.concat((y.clone(),res[1].flatten(-2)[:,0]))
+        print(X.shape)
 
         for batch_s in BATCH_SIZE:
             for hidden in NUM_HIDDEN:
-                for i in range(5):
                     
-                    if i==0:
-                        model = models.AirMLP_6(num_fin=record*6, num_hidden=hidden).to(device)
-                        model_name = "AirMLP_6"
-                    if i==1:
-                        model = models.AirMLP_7(num_fin=record*6, num_hidden=hidden).to(device)
-                        model_name = "AirMLP_7"
-                    if i==2:
-                        model = models.AirMLP_8(num_fin=record*6, num_hidden=hidden).to(device)
-                        model_name = "AirMLP_8"
-                    if i==3:
-                        model = models.AirMLP_7h(num_fin=record*6, num_hidden=hidden).to(device)
-                        model_name = "AirMLP_7h"
-                    if i==4:
-                        model = models.AirMLP_8h(num_fin=record*6, num_hidden=hidden).to(device)
-                        model_name = "AirMLP_8h"
+                    
+                    model = models.AirMLP_7(num_fin=record*6, num_hidden=hidden).to(device)
+                    model_name = "AirMLP_7"
+                    
 
                     config = f"record: {record} total_dim: {record*6}, batch_size: {batch_s}, hidden: {hidden}, model: {model}"
                     config_short = f"record: {record} total_dim: {record*6}, batch_size: {batch_s}, hidden: {hidden}, model: {model_name}"
@@ -118,7 +105,7 @@ try:
                         f.write(str(res_tmp[2]))
                         f.write("\n=========================")
         os.system(f"zip -r result_{num_trains}.zip ./results/")
-        os.system(f"cp result_{num_trains}.zip ../drive/MyDrive/res_siws")
+        
 except KeyboardInterrupt:
     os.system(f"zip -r result_{num_trains}.zip ./results/")
-    os.system(f"cp result_{num_trains}.zip ../drive/MyDrive/res_siws")
+    
