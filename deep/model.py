@@ -105,7 +105,8 @@ class AirMLP_7(nn.Module):
   
   def forward(self, x: torch.Tensor):
     output = self.net(x)
-    return torch.flatten(output,0)
+    return torch.flatten(output,0).unsqueeze(1)
+    
   
 class AirMLP_8(nn.Module):
   '''
